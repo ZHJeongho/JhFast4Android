@@ -7,7 +7,7 @@ import com.android.volley.VolleyError;
  * Created by Jeongho on 2016/12/23.
  */
 
-public abstract class HttpResponse implements Response.Listener, Response.ErrorListener{
+public abstract class HttpCallback<T> implements Response.Listener<T>, Response.ErrorListener{
 
     @Override
     public void onErrorResponse(VolleyError error) {
@@ -16,11 +16,11 @@ public abstract class HttpResponse implements Response.Listener, Response.ErrorL
     }
 
     @Override
-    public void onResponse(Object response) {
-        ok((String) response);
+    public void onResponse(T response) {
+        ok(response);
     }
 
-    public abstract void ok(String response);
+    public abstract void ok(T response);
 
     public abstract void fail(String error);
 }
