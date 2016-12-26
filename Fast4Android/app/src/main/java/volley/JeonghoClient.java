@@ -18,4 +18,8 @@ public class JeonghoClient extends BaseClient{
     public String getHost(){
         return PRODUCTION;
     }
+
+    public int add(int a, int b){
+        return a + b;
+    }
 }
