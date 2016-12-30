@@ -7,7 +7,6 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,17 +16,28 @@ import org.json.JSONObject;
  */
 
 public abstract class BaseClient {
+
     public abstract String getHost();
 
-    public void get(String url, HttpCallback<String> callback){
-        StringRequest request = new StringRequest(getHost() + url , callback, callback);
-        VolleyRequestManager.addRequest(request);
+    public void get(String url, HttpCallback callback){
+        this.get(url, null, callback);
     }
 
-    public void post(String url, HttpCallback<String> callback){
-        StringRequest request = new StringRequest(Request.Method.POST, getHost() + url , callback, callback);
-        VolleyRequestManager.addRequest(request);
+    public void get(String url, JsonParams params, HttpCallback callback){
+        VolleyRequestManager.sendRequest(Request.Method.GET, getHost() + url, params, callback);
     }
+
+    public void post(String url, HttpCallback callback){
+        this.post(url, null, callback);
+    }
+
+    public void post(String url, JsonParams params, HttpCallback callback){
+        VolleyRequestManager.sendRequest(Request.Method.POST, getHost() + url, params, callback);
+    }
+
+
+
+
 
     public void getBitmap(String url, int maxWidth, int maxHeight,
                           ImageView.ScaleType scaleType, Bitmap.Config config, HttpCallback<Bitmap> callback){
@@ -38,9 +48,13 @@ public abstract class BaseClient {
 
     public void getJsonObject(String url, HttpCallback<JSONObject> callback){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, callback, callback);
+        VolleyRequestManager.addRequest(jsonObjectRequest);
     }
 
     public void getJsonArray(String url, HttpCallback<JSONArray> callback){
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, callback, callback);
+        VolleyRequestManager.addRequest(jsonArrayRequest);
     }
+
+
 }
