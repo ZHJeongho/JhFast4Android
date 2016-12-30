@@ -1,12 +1,12 @@
 package volley;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.jeongho.fast4android.R;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by Jeongho on 2016/12/23.
@@ -24,17 +24,18 @@ public class TestActivity extends AppCompatActivity {
 
         final JeonghoClient client = new JeonghoClient();
 
-        client.getBitmap("http://p3.qhimg.com/t01fd7e086ea804717d.jpg", 600, 600,
-                ImageView.ScaleType.CENTER_INSIDE, Bitmap.Config.ARGB_8888, new HttpCallback<Bitmap>() {
-                    @Override
-                    public void ok(Bitmap response) {
-                        mImageView.setImageBitmap(response);
-                    }
+        client.get("http://www.baidu.com", new HttpCallback() {
+            @Override
+            public void ok(Object response) {
+                String result = (String) response;
+                Logger.d(result);
+            }
 
-                    @Override
-                    public void fail(String error) {
+            @Override
+            public void fail(String error) {
 
-                    }
-                });
+            }
+        });
+
     }
 }

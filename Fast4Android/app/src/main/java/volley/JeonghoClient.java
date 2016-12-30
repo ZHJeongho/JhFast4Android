@@ -9,7 +9,8 @@ package volley;
 public class JeonghoClient extends BaseClient{
 
     private static final String QA = "http://stormzhang.cn";
-    private static final String PRODUCTION = "http://stormzhang.com";
+    //private static final String PRODUCTION = "http://stormzhang.com";
+    private static final String PRODUCTION = "";
 
     /**
      * get host IP or website of the server
